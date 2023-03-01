@@ -3,8 +3,8 @@ import json
 import time
 from datetime import datetime
 
-SHOW_DIRECTION = True
-SCREEN_WIDTH = 15
+SHOW_DIRECTION = False
+SCREEN_WIDTH = 11
 
 def get_predictions(stops,directions):
 	'''
@@ -41,7 +41,7 @@ def get_predictions(stops,directions):
 				continue
 			line = str(stops['MonitoredVehicleJourney']['LineRef'])
 			if SHOW_DIRECTION:
-				line.append(' ' + str(stops['MonitoredVehicleJourney']['DirectionRef']))
+				line += (' ' + str(stops['MonitoredVehicleJourney']['DirectionRef']))
 			expectedtime = datetime.strptime(stops['MonitoredVehicleJourney']['MonitoredCall']['ExpectedArrivalTime'],dateformat)
 			timedelta = expectedtime-recordedtime
 
