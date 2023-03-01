@@ -33,4 +33,6 @@ export VIRTUALENVWRAPPER_ENV_BIN_DIR=bin
 `source ~/.bashrc1
 
 ## Requirements
+### LED Matrix Library
+https://github.comlhzeller/rpi-rgb-led-matrix
 
