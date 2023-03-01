@@ -5,6 +5,16 @@ from datetime import datetime
 
 
 def get_predictions(stops,directions):
+	'''
+    Quereies api and parses to find upcoming stops with the matching stops & directions.
+
+            Parameters:
+                    stops (int): A list of stop ID's
+                    directions (str): List of string Direction codes either 'IB' or 'OB'
+
+            Returns:
+                    visits (str,int): List of Tuples of (str,int) formatted as [[Bus line, ETA in seconds],...]
+    '''
 	visits = []
 
 	for stop in stops:
@@ -39,6 +49,16 @@ def get_predictions(stops,directions):
 	return visits
 
 def update_predictions(visits, s):
+	'''
+    Updates past predictions with elapsed time (s)
+
+            Parameters:
+                    visits (str,int): List of Tuples of (str,int) formatted as [[Bus line, ETA in seconds],...]
+                    s (int): Time in seconds elapsed to update the prediction by
+
+            Returns:
+                    out (str): Updated list of Tuples of strings formatted as [[Bus line, ETA],...]
+    '''
 	out = []
 	for busses in visits:
 		out.append([busses[0], busses[1] - s])
