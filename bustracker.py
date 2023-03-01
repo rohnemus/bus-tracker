@@ -1,4 +1,4 @@
-import urllib2
+import urllib.request
 import json
 import time
 from datetime import datetime
@@ -7,6 +7,16 @@ SHOW_DIRECTION = False
 SCREEN_WIDTH = 11
 
 def get_predictions(stops,directions):
+	'''
+    Quereies api and parses to find upcoming stops with the matching stops & directions.
+
+            Parameters:
+                    stops (int): A list of stop ID's
+                    directions (str): List of string Direction codes either 'IB' or 'OB'
+
+            Returns:
+                    visits (str,int): List of Tuples of (str,int) formatted as [[Bus line, ETA in seconds],...]
+    '''
 	visits = []
 
 	for stop in stops:
@@ -18,7 +28,7 @@ def get_predictions(stops,directions):
 		stopCode = '&stopCode='+str(stop)
 		frmt = '&format=json'
 
-		resp = urllib2.urlopen(url+api_key+agency+stopCode+frmt)
+		resp = urllib.request.urlopen(url+api_key+agency+stopCode+frmt)
 		content = resp.read().decode('utf-8-sig').encode('utf-8')
 
 		data = json.loads(content)
@@ -43,6 +53,16 @@ def get_predictions(stops,directions):
 	return visits
 
 def update_predictions(visits, s):
+	'''
+    Updates past predictions with elapsed time (s)
+
+            Parameters:
+                    visits (str,int): List of Tuples of (str,int) formatted as [[Bus line, ETA in seconds],...]
+                    s (int): Time in seconds elapsed to update the prediction by
+
+            Returns:
+                    out (str): Updated list of Tuples of strings formatted as [[Bus line, ETA],...]
+    '''
 	out = []
 	for busses in visits:
 		out.append([busses[0], busses[1] - s])
@@ -61,7 +81,7 @@ def parse_predictions(visits):
 		route_times = str(routes) + ":"
 		for eta in visits:
 			if eta[0] == routes:
-				route_times = route_times + " " + str(eta[1]/60) + ","
+				route_times = route_times + " " + str(int(eta[1]/60)) + ","
 		incomming_busses.append(route_times[:-1])
 
 	incomming_busses.sort()
@@ -72,21 +92,22 @@ def main():
 
 	while True:
 
-		print "\nRefreshing Data!"
+		print("\nRefreshing Data!")
 		try:
 			visits = get_predictions([14159,14158],['IB'])
 
 			for i in range(60):
-				print ""
-				print i
+				print("")
+				print(i)
 				incomming_busses = update_predictions(visits,i)
 				for predictions in parse_predictions(incomming_busses):
 					print(predictions)
 				time.sleep(1)
 		except:
-			print "\nNetwork Error\n"
+			print("\nNetwork Error\n")
 			time.sleep(5)
-		
+
 
 if __name__ == "__main__":
 	main()
+
