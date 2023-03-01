@@ -80,7 +80,7 @@ def parse_predictions(visits):
 	for routes in route_list:
 		route_times = str(routes) + ":"
 		for eta in visits:
-			if eta[0] == routes:
+			if eta[0] == routes and len(route_times) + 4 <= SCREEN_WIDTH:
 				route_times = route_times + " " + str(int(eta[1]/60)) + ","
 		incomming_busses.append(route_times[:-1])
 
