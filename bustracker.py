@@ -41,7 +41,7 @@ def get_predictions(stops,directions):
 				continue
 			line = str(stops['MonitoredVehicleJourney']['LineRef'])
 			if SHOW_DIRECTION:
-				line.append(' ' + str(stops['MonitoredVehicleJourney']['DirectionRef']))
+				line += (' ' + str(stops['MonitoredVehicleJourney']['DirectionRef']))
 			expectedtime = datetime.strptime(stops['MonitoredVehicleJourney']['MonitoredCall']['ExpectedArrivalTime'],dateformat)
 			timedelta = expectedtime-recordedtime
 
