@@ -74,7 +74,7 @@ def main():
 
 		print "\nRefreshing Data!"
 		try:
-			visits = get_predictions([14159,14158],['IB'])#,'OB'])
+			visits = get_predictions([14159,14158],['IB'])
 
 			for i in range(60):
 				print ""
