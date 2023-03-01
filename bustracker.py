@@ -71,6 +71,15 @@ def update_predictions(visits, s):
 
 
 def parse_predictions(visits):
+	'''
+    Parse list of expected bus arrivals into displayable strings
+
+            Parameters:
+                    visits (str,int): List of Tuples of (str,int) formatted as [[Bus line, ETA in seconds],...]
+
+            Returns:
+                    incomming_busses (str): List of strings formatted as "Bus line: ETA,..."
+    '''
 	route_list = []
 	for routes in visits:
 		if routes[0] not in route_list:
