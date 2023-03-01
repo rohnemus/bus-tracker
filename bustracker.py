@@ -1,4 +1,4 @@
-import urllib2
+import urllib.request
 import json
 import time
 from datetime import datetime
@@ -16,7 +16,7 @@ def get_predictions(stops,directions):
 		stopCode = '&stopCode='+str(stop)
 		frmt = '&format=json'
 
-		resp = urllib2.urlopen(url+api_key+agency+stopCode+frmt)
+		resp = urllib.request.urlopen(url+api_key+agency+stopCode+frmt)
 		content = resp.read().decode('utf-8-sig').encode('utf-8')
 
 		data = json.loads(content)
@@ -57,7 +57,7 @@ def parse_predictions(visits):
 		route_times = str(routes) + ":"
 		for eta in visits:
 			if eta[0] == routes:
-				route_times = route_times + " " + str(eta[1]/60) + ","
+				route_times = route_times + " " + str(int(eta[1]/60)) + ","
 		incomming_busses.append(route_times[:-1])
 
 	incomming_busses.sort()
@@ -68,21 +68,22 @@ def main():
 
 	while True:
 
-		print "\nRefreshing Data!"
+		print("\nRefreshing Data!")
 		try:
 			visits = get_predictions([14159,14158],['IB'])#,'OB'])
 
 			for i in range(60):
-				print ""
-				print i
+				print("")
+				print(i)
 				incomming_busses = update_predictions(visits,i)
 				for predictions in parse_predictions(incomming_busses):
 					print(predictions)
 				time.sleep(1)
 		except:
-			print "\nNetwork Error\n"
+			print("\nNetwork Error\n")
 			time.sleep(5)
-		
+
 
 if __name__ == "__main__":
 	main()
+
