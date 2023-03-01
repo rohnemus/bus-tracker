@@ -5,12 +5,18 @@ Use this to pull from the muni api and display with a pixel display
 Users will need to make an account and request an api key here: TODO
 
 # Hardware
-List of hardware used:
+## List of OTS hardware used:
  - rpi 3b
- - waveshare 64x32 pixel display
- - adafruit pixel display hat
+ - [Waveshare 64x32 pixel display](https://www.waveshare.com/product/rgb-matrix-p2.5-64x32.htm)
+ - [Adafruit pixel display hat](https://www.adafruit.com/product/2345)
+ - usb wifi dongle
+ - 5v 4A 2.1mm power supply
+ - 12in HUB75 ribbon cable
  
- mounting cad
+ ## Custom enclosure:
+ STL files can be found here in /print files
+ Links to onshape documents can be found here
+ 
  
 # Installation
 
