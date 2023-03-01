@@ -3,8 +3,8 @@ import json
 import time
 from datetime import datetime
 
-SHOW_DIRECTION = False
-SCREEN_WIDTH = 11
+SHOW_DIRECTION = True
+SCREEN_WIDTH = 15
 
 def get_predictions(stops,directions):
 	'''
