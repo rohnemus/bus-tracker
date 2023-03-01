@@ -14,7 +14,23 @@ List of hardware used:
  
 # Installation
 
-Virtual Env
+## Virtual Env
+https://raspberrypi-guide.github.io/programming/create-python-virtual-environment
 
-Requirements
+`pip3 install virtualenv virtualenvwrapper`
+`nano ~/.bashrc`
+
+Append:
+```
+#Virtualenvwrapper settings:
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
+source ~/.local/bin/virtualenvwrapper.sh
+export VIRTUALENVWRAPPER_ENV_BIN_DIR=bin
+```
+
+`source ~/.bashrc1
+
+## Requirements
 
