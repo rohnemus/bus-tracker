@@ -41,4 +41,10 @@ export VIRTUALENVWRAPPER_ENV_BIN_DIR=bin
 ## Requirements
 ### LED Matrix Library
 https://github.comlhzeller/rpi-rgb-led-matrix
+This library is included as submodule. In the matrix directory run:
 
+```
+sudo apt-get update && sudo apt-get install python3-dev python3-pillow -y
+make build-python PYTHON=$(command -v python3)
+sudo make install-python PYTHON=$(command -v python3)
+```
