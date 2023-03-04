@@ -41,10 +41,31 @@ export VIRTUALENVWRAPPER_ENV_BIN_DIR=bin
 ## Requirements
 ### LED Matrix Library
 https://github.comlhzeller/rpi-rgb-led-matrix
-This library is included as submodule. In the matrix directory run:
+This library is included as submodule. Use the following commands to initialize:
+
+```
+git submodule init
+git submodule update --init --recursive
+```
+
+Once the submodule is initialized update the hardware config in the makefile:
+
+`nano matrix/lib/Makefile`
+
+    Line 37: `HARDWARE_DESC?=adafruit-hat` 
+
+
+Run the following commands in the /matrix directory to build the python bindings:
 
 ```
 sudo apt-get update && sudo apt-get install python3-dev python3-pillow -y
 make build-python PYTHON=$(command -v python3)
 sudo make install-python PYTHON=$(command -v python3)
+```
+
+Test everything is working:
+
+```
+cd /bindings/python/samples
+sudo ./runtext.py --led-cols=64 --led-rows=32
 ```
