@@ -5,6 +5,7 @@ from datetime import datetime
 
 SHOW_DIRECTION = False
 SCREEN_WIDTH = 11
+API_KEY = 'baac5dd7-16fd-4bbf-b417-7fdd9ced9619'
 
 def get_predictions(stops,directions):
 	'''
@@ -23,7 +24,7 @@ def get_predictions(stops,directions):
 
 		dateformat = '%Y-%m-%dT%H:%M:%SZ'
 		url = 'https://api.511.org/transit/StopMonitoring?'
-		api_key = 'api_key=baac5dd7-16fd-4bbf-b417-7fdd9ced9619'
+		api_key = 'api_key=' + API_KEY
 		agency = '&agency=SF'
 		stopCode = '&stopCode='+str(stop)
 		frmt = '&format=json'
@@ -90,7 +91,9 @@ def parse_predictions(visits):
 		route_times = str(routes) + ":"
 		for eta in visits:
 			if eta[0] == routes and len(route_times) + 4 <= SCREEN_WIDTH:
-				route_times = route_times + " " + str(int(eta[1]/60)) + ","
+				append_time = int(eta[1]/60)
+				route_times = f"{route_times:s} {append_time:2d},"
+
 		incomming_busses.append(route_times[:-1])
 
 	incomming_busses.sort()
