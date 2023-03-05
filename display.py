@@ -29,8 +29,8 @@ class DisplayBus(SampleBase):
 
             offscreen_canvas.Clear()
             print("\nRefreshing Data!")
-            graphics.DrawText(offscreen_canvas, font, 10, 15, textColor, "Refreshing")
-            graphics.DrawText(offscreen_canvas, font, 10, 29, textColor, "   Data   ")
+            graphics.DrawText(offscreen_canvas, font, 2, 12, textColor, "Refreshing")
+            graphics.DrawText(offscreen_canvas, font, 2, 26, textColor, "   Data   ")
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
             try:
@@ -44,16 +44,17 @@ class DisplayBus(SampleBase):
                     for predictions in parsed:
                         print(predictions)
 
-                    graphics.DrawText(offscreen_canvas, font, 10, 15, textColor, str(parsed[0]))
-                    graphics.DrawText(offscreen_canvas, font, 10, 29, textColor, str(parsed[1]))
+                    offscreen_canvas.Clear()
+                    graphics.DrawText(offscreen_canvas, font, 2, 12, textColor, str(parsed[0]))
+                    graphics.DrawText(offscreen_canvas, font, 2, 26, textColor, str(parsed[1]))
                     offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                     time.sleep(1)
 
             except:
                 offscreen_canvas.Clear()
                 print("\nNetwork Error\n")
-                graphics.DrawText(offscreen_canvas, font, 10, 15, textColor, " Network ")
-                graphics.DrawText(offscreen_canvas, font, 10, 29, textColor, "  Error  ")
+                graphics.DrawText(offscreen_canvas, font, 2, 12, textColor, " Network ")
+                graphics.DrawText(offscreen_canvas, font, 2, 26, textColor, "  Error  ")
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                 time.sleep(5)
 
