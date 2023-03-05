@@ -16,22 +16,22 @@ class DisplayBus(SampleBase):
         font.LoadFont("../../../fonts/7x13.bdf")
         textColor = graphics.Color(255, 0, 0)
         pos = offscreen_canvas.width
-        my_text = self.args.text
 
         while True:
-            offscreen_canvas.Clear()
-            len = graphics.DrawText(offscreen_canvas, font, pos, 10, textColor, my_text)
-            pos -= 1
-            if (pos + len < 0):
-                pos = offscreen_canvas.width
+            # offscreen_canvas.Clear()
+            # len = graphics.DrawText(offscreen_canvas, font, pos, 10, textColor, my_text)
+            # pos -= 1
+            # if (pos + len < 0):
+            #     pos = offscreen_canvas.width
 
-            time.sleep(0.05)
-            offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+            # time.sleep(0.05)
+            # offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
             offscreen_canvas.Clear()
             print("\nRefreshing Data!")
             graphics.DrawText(offscreen_canvas, font, 10, 15, textColor, "Refreshing")
             graphics.DrawText(offscreen_canvas, font, 10, 29, textColor, "   Data   ")
+            offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
             try:
                 visits = bstk.get_predictions([14159,14158],['IB'])
@@ -46,7 +46,7 @@ class DisplayBus(SampleBase):
 
                     graphics.DrawText(offscreen_canvas, font, 10, 15, textColor, str(parsed[0]))
                     graphics.DrawText(offscreen_canvas, font, 10, 29, textColor, str(parsed[1]))
-
+                    offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                     time.sleep(1)
 
             except:
@@ -54,6 +54,7 @@ class DisplayBus(SampleBase):
                 print("\nNetwork Error\n")
                 graphics.DrawText(offscreen_canvas, font, 10, 15, textColor, " Network ")
                 graphics.DrawText(offscreen_canvas, font, 10, 29, textColor, "  Error  ")
+                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                 time.sleep(5)
 
 
