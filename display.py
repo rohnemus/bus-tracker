@@ -44,9 +44,21 @@ class DisplayBus(SampleBase):
                     for predictions in parsed:
                         print(predictions)
 
-                    offscreen_canvas.Clear()
-                    graphics.DrawText(offscreen_canvas, font, 2, 14, textColor, str(parsed[0]))
-                    graphics.DrawText(offscreen_canvas, font, 2, 28, textColor, str(parsed[1]))
+                    if len(parsed) < 1:
+                        offscreen_canvas.Clear()
+                        print("\nNo Buses Predicted")
+                        graphics.DrawText(offscreen_canvas, font, 8, 14, textColor, "No Buses")
+                        graphics.DrawText(offscreen_canvas, font, 5, 28, textColor, "Predicted")                    
+
+                    if len(parsed) < 2:
+                        offscreen_canvas.Clear()
+                        graphics.DrawText(offscreen_canvas, font, 2, 21, textColor, str(parsed[0]))
+
+                    if len(parsed) >= 2:
+                        offscreen_canvas.Clear()
+                        graphics.DrawText(offscreen_canvas, font, 2, 14, textColor, str(parsed[0]))
+                        graphics.DrawText(offscreen_canvas, font, 2, 28, textColor, str(parsed[1]))
+
                     offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                     time.sleep(1)
 
