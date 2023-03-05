@@ -26,6 +26,7 @@ Much of this project is based off of hzeller's [rpi-rgb-led-matrix](https://gith
 ```
 cd ~
 mkdir bus-tracker
+cd bus-tracker
 git clone https://github.com/rohnemus/bus-tracker.git
 ```
 
