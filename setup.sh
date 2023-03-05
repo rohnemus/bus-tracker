@@ -13,7 +13,7 @@ git submodule init
 git submodule update --init --recursive
 
 # Install Python Bindings
-cd matrix
+cd ~/bus-tracker/bus-tracker/matrix
 sudo apt-get update && sudo apt-get install python3-dev python3-pillow -y
 make build-python PYTHON=$(command -v python3)
 sudo make install-python PYTHON=$(command -v python3)
