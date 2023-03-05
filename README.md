@@ -23,8 +23,10 @@ Users will need to make an account and request an api key here: TODO
 ## Virtual Env
 https://raspberrypi-guide.github.io/programming/create-python-virtual-environment
 
-`pip3 install virtualenv virtualenvwrapper`
-`nano ~/.bashrc`
+```
+pip3 install virtualenv virtualenvwrapper
+nano ~/.bashrc
+```
 
 Append:
 ```
@@ -36,7 +38,7 @@ source ~/.local/bin/virtualenvwrapper.sh
 export VIRTUALENVWRAPPER_ENV_BIN_DIR=bin
 ```
 
-`source ~/.bashrc1
+`source ~/.bashrc1`
 
 ## Requirements
 ### LED Matrix Library
