@@ -1,50 +1,79 @@
 # bus-tracker
 
-Use this to pull from the muni api and display with a pixel display
+Use this to pull from the muni api and display with a pixel display!
 
 Users will need to make an account and request an api key here: TODO
-
-# Hardware
-## List of OTS hardware used:
- - rpi 3b
- - [Waveshare 64x32 pixel display](https://www.waveshare.com/product/rgb-matrix-p2.5-64x32.htm)
+  
+# Setup
+## Hardware
+### List of OTS hardware used:
+ - rpi 3b running standard rasbian os
+ - [Waveshare P4 64x32 pixel display](https://www.waveshare.com/RGB-Matrix-P4-64x32.htm)
  - [Adafruit pixel display hat](https://www.adafruit.com/product/2345)
  - usb wifi dongle
  - 5v 4A 2.1mm power supply
  - 12in HUB75 ribbon cable
  
- ## Custom enclosure:
+ ### Custom enclosure:
  STL files can be found here in /print files
  Links to onshape documents can be found here
  
- 
-# Installation
+ ### Assembly
+Much of this project is based off of hzeller's [rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix) library consult documentation here for more help with wiring
 
-## Virtual Env
-https://raspberrypi-guide.github.io/programming/create-python-virtual-environment
-
-`pip3 install virtualenv virtualenvwrapper`
-`nano ~/.bashrc`
-
-Append:
+## Software
+### Clone repository
 ```
-#Virtualenvwrapper settings:
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
-source ~/.local/bin/virtualenvwrapper.sh
-export VIRTUALENVWRAPPER_ENV_BIN_DIR=bin
+cd ~
+mkdir bus-tracker
+cd bus-tracker
+git clone https://github.com/rohnemus/bus-tracker.git
 ```
 
-`source ~/.bashrc1
+Once this project is cloned the rest can be done automatically using [setup.sh](https://github.com/rohnemus/bus-tracker/blob/main/setup.sh) or manually:
+### Automatic
+```
+cd bus-tracker
+chmod u+x setup.sh
+./setup.sh
+```
 
-## Requirements
-### LED Matrix Library
-https://github.comlhzeller/rpi-rgb-led-matrix
-This library is included as submodule. In the matrix directory run:
+### Manual
+#### Add script to run on boot
+```
+echo "" >> ~/.bashrc
+echo "# Run bus tracker display script on boot:" >> ~/.bashrc
+echo "~/bus-tracker/bus-tracker/bus-tracker.sh &" >> ~/.bashrc
+source ~/.bashrc
+```
+
+#### LED Matrix Library
+The [rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix) library is included as submodule. Use the following commands to initialize:
+
+```
+git submodule init
+git submodule update --init --recursive
+```
+
+Run the following commands in the /matrix directory to build the python bindings:
 
 ```
 sudo apt-get update && sudo apt-get install python3-dev python3-pillow -y
 make build-python PYTHON=$(command -v python3)
 sudo make install-python PYTHON=$(command -v python3)
 ```
+
+#### Move python script to sample directory
+```
+cp bustracker.py display.py matrix/bindings/python/samples
+```
+
+#### Test everything is working
+
+```
+cd /bindings/python/samples
+sudo ./runtext.py --led-gpio-mapping=adafruit-hat --led-cols=64 --led-rows=32
+```
+
+### Done
+Reboot and the bus tracker should display on boot!
