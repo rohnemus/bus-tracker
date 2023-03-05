@@ -33,13 +33,6 @@ git submodule init
 git submodule update --init --recursive
 ```
 
-Once the submodule is initialized update the hardware config in the makefile:
-
-`nano matrix/lib/Makefile`
-
-    Line 37: `HARDWARE_DESC?=adafruit-hat` 
-
-
 Run the following commands in the /matrix directory to build the python bindings:
 
 ```
