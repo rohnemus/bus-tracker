@@ -6,8 +6,8 @@ Users will need to make an account and request an api key here: TODO
 
 # Hardware
 ## List of OTS hardware used:
- - rpi 3b
- - [Waveshare 64x32 pixel display](https://www.waveshare.com/product/rgb-matrix-p2.5-64x32.htm)
+ - rpi 3b running standard rasbian os
+ - [Waveshare P4 64x32 pixel display](https://www.waveshare.com/RGB-Matrix-P4-64x32.htm)
  - [Adafruit pixel display hat](https://www.adafruit.com/product/2345)
  - usb wifi dongle
  - 5v 4A 2.1mm power supply
@@ -20,7 +20,10 @@ Users will need to make an account and request an api key here: TODO
  
 # Installation
 
+
 ## Requirements
+All of this can manually or can be done automatically using setup.sh
+
 ### LED Matrix Library
 https://github.comlhzeller/rpi-rgb-led-matrix
 This library is included as submodule. Use the following commands to initialize:
