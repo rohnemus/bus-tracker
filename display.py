@@ -13,7 +13,7 @@ class DisplayBus(SampleBase):
     def run(self):
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
-        font.LoadFont("../../../fonts/7x13.bdf")
+        font.LoadFont("../../../fonts/6x13B.bdf")
         textColor = graphics.Color(255, 0, 0)
         pos = offscreen_canvas.width
 
@@ -29,8 +29,8 @@ class DisplayBus(SampleBase):
 
             offscreen_canvas.Clear()
             print("\nRefreshing Data!")
-            graphics.DrawText(offscreen_canvas, font, 2, 12, textColor, "Refreshing")
-            graphics.DrawText(offscreen_canvas, font, 2, 26, textColor, "   Data   ")
+            graphics.DrawText(offscreen_canvas, font, 1, 13, textColor, "Refreshing")
+            graphics.DrawText(offscreen_canvas, font, 1, 29, textColor, "   Data   ")
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
             try:
@@ -45,16 +45,16 @@ class DisplayBus(SampleBase):
                         print(predictions)
 
                     offscreen_canvas.Clear()
-                    graphics.DrawText(offscreen_canvas, font, 2, 12, textColor, str(parsed[0]))
-                    graphics.DrawText(offscreen_canvas, font, 2, 26, textColor, str(parsed[1]))
+                    graphics.DrawText(offscreen_canvas, font, 1, 13, textColor, str(parsed[0]))
+                    graphics.DrawText(offscreen_canvas, font, 1, 29, textColor, str(parsed[1]))
                     offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                     time.sleep(1)
 
             except:
                 offscreen_canvas.Clear()
                 print("\nNetwork Error\n")
-                graphics.DrawText(offscreen_canvas, font, 2, 12, textColor, " Network ")
-                graphics.DrawText(offscreen_canvas, font, 2, 26, textColor, "  Error  ")
+                graphics.DrawText(offscreen_canvas, font, 1, 1, textColor, " Network ")
+                graphics.DrawText(offscreen_canvas, font, 1, 29, textColor, "  Error  ")
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                 time.sleep(5)
 
