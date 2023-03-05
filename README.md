@@ -34,6 +34,7 @@ Once this project is cloned the rest can be done automatically using [setup.sh](
 ### Automatic
 ```
 cd bus-tracker
+chmod u+x setup.sh
 ./setup.sh
 ```
 
