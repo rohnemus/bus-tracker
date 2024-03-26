@@ -12,6 +12,7 @@ After=network.target
 [Service]
 ExecStart=/bin/bash ${HOME}/bus-tracker/bus-tracker/bus-tracker.sh
 Restart=on-failure
+RestartSec=10s
 Type=forking
 User=${USER}
 WorkingDirectory=${HOME}/bus-tracker/bus-tracker
