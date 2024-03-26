@@ -89,10 +89,12 @@ sudo ./runtext.py --led-gpio-mapping=adafruit-hat --led-cols=64 --led-rows=32
 ```
 
 #### Enable systemd service and start it
+```
 sudo systemctl daemon-reload
 sudo systemctl enable bus_tracker.service 
 sudo systemctl start bus_tracker.service 
 sudo systemctl status bus_tracker.service
+```
 
 ### Done
 Reboot and the bus tracker should display on boot!
