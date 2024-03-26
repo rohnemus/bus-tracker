@@ -1,4 +1,3 @@
-import os
 import urllib.request
 import json
 import time
@@ -102,13 +101,11 @@ def parse_predictions(visits):
 	return incomming_busses
 
 def main():
-	watchdog = 0
 	while True:
 
 		print("\nRefreshing Data!")
 		try:
 			visits = get_predictions([14159,14158],['IB'])
-			watchdog = 0
 			for i in range(60):
 				print("")
 				print(i)
@@ -118,8 +115,6 @@ def main():
 				time.sleep(1)
 		except:
 			print("\nNetwork Error\n")
-			watchdog += 1
-			if watchdog >= 100: os.system('sudo shutdown -r now')
 			time.sleep(5)
 
 

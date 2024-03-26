@@ -16,6 +16,7 @@ class DisplayBus(SampleBase):
         font.LoadFont("../../../fonts/6x13.bdf")
         textColor = graphics.Color(255, 0, 0)
         pos = offscreen_canvas.width
+        watchdog = 0
 
         while True:
             offscreen_canvas.Clear()
@@ -46,6 +47,7 @@ class DisplayBus(SampleBase):
                         graphics.DrawText(offscreen_canvas, font, 2, 28, textColor, str(parsed[1]))
 
                     offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+                    watchdog = 0
                     time.sleep(1)
 
             except:
@@ -53,6 +55,8 @@ class DisplayBus(SampleBase):
                 graphics.DrawText(offscreen_canvas, font, 5, 14, textColor, " Network ")
                 graphics.DrawText(offscreen_canvas, font, 5, 28, textColor, "  Error  ")
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
+                watchdog += 1
+                if watchdog >= 100: break
                 time.sleep(5)
 
 
