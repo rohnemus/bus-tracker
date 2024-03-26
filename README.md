@@ -39,12 +39,25 @@ chmod u+x setup.sh
 ```
 
 ### Manual
-#### Add script to run on boot
+#### Create sytemd service
 ```
-echo "" >> ~/.bashrc
-echo "# Run bus tracker display script on boot:" >> ~/.bashrc
-echo "~/bus-tracker/bus-tracker/bus-tracker.sh &" >> ~/.bashrc
-source ~/.bashrc
+cat > bus_tracker.service << EOF
+[Unit]
+Description=Display bus times
+After=network.target
+
+[Service]
+ExecStart=/bin/bash ${HOME}/bus-tracker/bus-tracker/bus-tracker.sh
+Restart=on-failure
+RestartSec=10s
+Type=forking
+User=${USER}
+WorkingDirectory=${HOME}/bus-tracker/bus-tracker
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo mv bus_tracker.service /etc/systemd/system
 ```
 
 #### LED Matrix Library
@@ -74,6 +87,12 @@ cp bustracker.py display.py matrix/bindings/python/samples
 cd /bindings/python/samples
 sudo ./runtext.py --led-gpio-mapping=adafruit-hat --led-cols=64 --led-rows=32
 ```
+
+#### Enable systemd service and start it
+sudo systemctl daemon-reload
+sudo systemctl enable bus_tracker.service 
+sudo systemctl start bus_tracker.service 
+sudo systemctl status bus_tracker.service
 
 ### Done
 Reboot and the bus tracker should display on boot!
