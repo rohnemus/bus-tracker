@@ -2,7 +2,7 @@
 
 Use this to pull from the muni api and display with a pixel display!
 
-Users will need to make an account and request an api key here: TODO
+Users will need to make an account and request an api key [here.](https://511.org/open-data/token)
   
 # Setup
 ## Hardware
@@ -39,12 +39,41 @@ chmod u+x setup.sh
 ```
 
 ### Manual
-#### Add script to run on boot
+#### Create config file
 ```
-echo "" >> ~/.bashrc
-echo "# Run bus tracker display script on boot:" >> ~/.bashrc
-echo "~/bus-tracker/bus-tracker/bus-tracker.sh &" >> ~/.bashrc
-source ~/.bashrc
+cd bus-tracker
+cat > config.ini << EOF
+[credentials]
+api=PASTE_API_KEY_HERE
+
+[bus selection]
+stops=14159,14158
+direction=IB
+
+[display]
+show_direction=False
+screen_width=11
+EOF
+```
+#### Create sytemd service
+```
+cat > bus_tracker.service << EOF
+[Unit]
+Description=Display bus times
+After=network.target
+
+[Service]
+ExecStart=/bin/bash ${HOME}/bus-tracker/bus-tracker/bus-tracker.sh
+Restart=on-failure
+RestartSec=10s
+Type=forking
+User=${USER}
+WorkingDirectory=${HOME}/bus-tracker/bus-tracker
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo mv bus_tracker.service /etc/systemd/system
 ```
 
 #### LED Matrix Library
@@ -73,6 +102,14 @@ cp bustracker.py display.py matrix/bindings/python/samples
 ```
 cd /bindings/python/samples
 sudo ./runtext.py --led-gpio-mapping=adafruit-hat --led-cols=64 --led-rows=32
+```
+
+#### Enable systemd service and start it
+```
+sudo systemctl daemon-reload
+sudo systemctl enable bus_tracker.service 
+sudo systemctl start bus_tracker.service 
+sudo systemctl status bus_tracker.service
 ```
 
 ### Done

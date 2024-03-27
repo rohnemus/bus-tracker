@@ -1,11 +1,25 @@
 import urllib.request
 import json
 import time
+import configparser
 from datetime import datetime
 
 SHOW_DIRECTION = False
 SCREEN_WIDTH = 11
-API_KEY = 'baac5dd7-16fd-4bbf-b417-7fdd9ced9619'
+
+def get_config():
+	'''
+	Loads api key from config.ini
+
+			Parameters:
+
+			Returns:
+				config (str): config contents
+	'''
+	config = configparser.ConfigParser()
+	config.read('config.ini')#~/bus-tracker/bus-tracker/
+
+	return config
 
 def get_predictions(stops,directions):
 	'''
@@ -18,6 +32,10 @@ def get_predictions(stops,directions):
             Returns:
                     visits (str,int): List of Tuples of (str,int) formatted as [[Bus line, ETA in seconds],...]
     '''
+	config_contents = get_config()
+	API_KEY = str(config_contents['credentials']['api'])
+	SHOW_DIRECTION = 'True' == config_contents['display']['show_direction']
+
 	visits = []
 
 	for stop in stops:
@@ -29,6 +47,7 @@ def get_predictions(stops,directions):
 		stopCode = '&stopCode='+str(stop)
 		frmt = '&format=json'
 
+		print(url+api_key+agency+stopCode+frmt)
 		resp = urllib.request.urlopen(url+api_key+agency+stopCode+frmt)
 		content = resp.read().decode('utf-8-sig').encode('utf-8')
 
@@ -81,6 +100,9 @@ def parse_predictions(visits):
             Returns:
                     incomming_busses (str): List of strings formatted as "Bus line: ETA,..."
     '''
+	config_contents = get_config()
+	SCREEN_WIDTH = int(config_contents['display']['screen_width'])
+
 	route_list = []
 	for routes in visits:
 		if routes[0] not in route_list:
@@ -94,20 +116,17 @@ def parse_predictions(visits):
 				append_time = int(eta[1]/60)
 				route_times = f"{route_times:s} {append_time:2d},"
 
-		incomming_busses.append(route_times[:-1])
+			incomming_busses.append(route_times[:-1])
 
-	incomming_busses.sort()
+		incomming_busses.sort()
 
 	return incomming_busses
 
 def main():
-
 	while True:
-
 		print("\nRefreshing Data!")
 		try:
 			visits = get_predictions([14159,14158],['IB'])
-
 			for i in range(60):
 				print("")
 				print(i)
@@ -118,6 +137,7 @@ def main():
 		except:
 			print("\nNetwork Error\n")
 			time.sleep(5)
+
 
 
 if __name__ == "__main__":
