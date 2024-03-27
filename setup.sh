@@ -8,6 +8,9 @@ cat > bus_tracker.service << EOF
 [Unit]
 Description=Display bus times
 After=network.target
+StartLimitAction=reboot
+StartLimitIntervalSec=60
+StartLimitBurst=5
 
 [Service]
 ExecStart=/bin/bash ${HOME}/bus-tracker/bus-tracker/bus-tracker.sh
