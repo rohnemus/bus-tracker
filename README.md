@@ -2,7 +2,7 @@
 
 Use this to pull from the muni api and display with a pixel display!
 
-Users will need to make an account and request an api key [here!](https://511.org/open-data/token)
+Users will need to make an account and request an api key [here.](https://511.org/open-data/token)
   
 # Setup
 ## Hardware
