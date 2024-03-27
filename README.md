@@ -39,6 +39,22 @@ chmod u+x setup.sh
 ```
 
 ### Manual
+#### Create config file
+```
+cd bus-tracker
+cat > config.ini << EOF
+[credentials]
+api=PASTE_API_KEY_HERE
+
+[bus selection]
+stops=14159,14158
+direction=IB
+
+[display]
+show_direction=False
+screen_width=11
+EOF
+```
 #### Create sytemd service
 ```
 cat > bus_tracker.service << EOF

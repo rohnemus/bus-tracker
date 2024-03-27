@@ -1,5 +1,20 @@
 #!/bin/bash
 
+# Create Config File
+echo ""
+echo "Creating config file"
+cat > config.ini << EOF
+[credentials]
+api=PASTE_API_KEY_HERE
+
+[bus selection]
+stops=14159,14158
+direction=IB
+
+[display]
+show_direction=False
+screen_width=11
+EOF
 
 # Set script to run on startup
 echo ""
