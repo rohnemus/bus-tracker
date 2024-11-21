@@ -15,8 +15,9 @@ Users will need to make an account and request an api key [here.](https://511.or
  - 12in HUB75 ribbon cable
  
  ### Custom enclosure:
- STL files can be found here in /print files
- Links to onshape documents can be found here
+ STL files can be found here in /print files  
+ Links to onshape documents can be found here  
+ (I'll get to this eventually i've been using the box the screen came in for now)
  
  ### Assembly
 Much of this project is based off of hzeller's [rpi-rgb-led-matrix](https://github.com/hzeller/rpi-rgb-led-matrix) library consult documentation here for more help with wiring
